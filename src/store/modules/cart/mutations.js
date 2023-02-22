@@ -5,13 +5,12 @@ export default {
         let qty;
             
         if (state.cart.length === 0) {
-            state.cart.push({
+            return state.cart.push({
                     product: payload.product,
                     quantity: 1
             })
         } else {
             for (const el of state.cart) {
-                console.log(el)
                 if (el.product === payload.product) {
                     el.quantity++;
                     present = true;
@@ -74,5 +73,11 @@ export default {
                 }
             }
         })
+    },
+    setOrder(state, payload) {
+        state.order = payload.cart;
+    },
+    clearCart(state) {
+        state.cart = [];
     }
 }

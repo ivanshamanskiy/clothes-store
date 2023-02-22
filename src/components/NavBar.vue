@@ -16,6 +16,9 @@ export default {
         },
         hoodiesOn() {
             return this.$store.getters['items/hoodiesOn'];
+        },
+        cartLength() {
+            return this.$store.getters['cart/getCartLength'];
         }
     }
 }
@@ -40,6 +43,9 @@ export default {
         <svg class="nav-bar__icon">
             <use href="../sprite.svg#cart"></use>
         </svg>
+        <div class="nav-bar__icon__qty">
+            <p>{{ cartLength }}</p>
+        </div>
     </router-link>
 </section>
 <div class="nav-bar__btn nav-bar__btn_centered" @click="toggleNav">
@@ -94,6 +100,25 @@ export default {
     height: 5.2rem;
 }
 
+.nav-bar__icon__qty {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    height: 3rem;
+    width: 3rem;
+    background-color: $accent;
+    border-radius: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-bar__icon__qty > p {
+    color: #fff;
+    font-size: 1.4rem;
+}
+
 .nav-bar__icon_right-margin {
     margin-right: 2.5rem;
 }
@@ -127,6 +152,17 @@ export default {
 
 a {
     text-decoration: none;
+}
+
+a:last-child {
+    position: relative;
+}
+
+@media screen and (min-width: 900px) {
+    .nav-bar__nav-links {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2rem;
+    }
 }
 
 

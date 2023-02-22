@@ -5,8 +5,35 @@ import NavBar from './components/NavBar.vue';
 
 export default {
   components: { MainPage, NavBar },
+  computed: {
+    didAutoLogout() {
+      return this.$store.getters['auth/didAutoLogout']
+    },
+    curPath() {
+      return this.$route.path;
+    }
+  },
   created() {
     this.$store.dispatch('auth/autoLogIn');
+  },
+  watch: {
+    didAutoLogout(curVal, oldVal) {
+      if (curVal && curVal !== oldVal) {
+        this.$router.replace('/')
+      }
+    },
+    curPath(curVal, oldVal) {
+      if (curVal === '/auth' || '/cart') {
+        this.$store.commit('items/exitBoth');
+      } 
+      if (curVal === '/') {
+        if(this.$route.hash === '#hoodies') {
+          this.$store.commit('items/openHoodiesSection')
+        } else {
+          this.$store.commit('items/openTshirtsSection')
+        }
+      }
+    }
   }
 }
 

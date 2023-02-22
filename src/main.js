@@ -13,12 +13,16 @@ import BaseButton from './components/ui/BaseButton.vue';
 import BaseHeading from './components/ui/BaseHeading.vue';
 import BaseDialog from './components/ui/BaseDialog.vue';
 import FormError from './components/ui/FormError.vue';
+import BaseInput from './components/ui/BaseInput.vue';
+import BaseSpinner from './components/ui/BaseSpinner.vue';
 
 app
 .component('BaseButton', BaseButton)
 .component('BaseHeading', BaseHeading)
 .component('BaseDialog', BaseDialog)
 .component('FormError', FormError)
+.component('BaseInput', BaseInput)
+.component('BaseSpinner', BaseSpinner)
 
 app.use(store);
 app.use(router);

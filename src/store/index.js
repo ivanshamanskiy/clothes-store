@@ -10,7 +10,20 @@ const store = createStore({
         items: itemsModule,
         auth: authModule,
         cart: cartModule
-    }
+    },
+    // state() {
+    //     isLoading: false;
+    // },
+    // mutations: {
+    //     setIsLoading(state) {
+    //         state.isLoading = !state.isLoading;
+    //     },
+    // },
+    // getters: {
+    //     isLoading(state) {
+    //         return state.isLoading;
+    //     }
+    // }
 })
 
 export default store;

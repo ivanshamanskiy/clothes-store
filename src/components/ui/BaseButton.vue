@@ -17,9 +17,6 @@
     text-transform: uppercase;
     border-radius: 10px;
     cursor: pointer;
-
-    margin-left: auto;
-    margin-right: auto;
 }
 
 @media screen and (min-width: 900px) {

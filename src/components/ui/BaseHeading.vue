@@ -17,4 +17,11 @@
     margin-left: 0;
     margin-right: 0;
 }
+
+@media screen and (min-width: 900px) {
+    .cart-heading {
+        font-size: 5rem;
+    }
+}
+
 </style>

@@ -26,7 +26,7 @@ export default {
                 present = true;
 
                 const responseData = response.json();
-                showError(responseData);
+                showError(response);
             } 
         }
 
@@ -39,12 +39,13 @@ export default {
                     })
             })
             const responseData = response.json();
-            showError(responseData);
+            showError(response);
         }
 
         context.commit('addToCart', {
             product: payload.product,
-            quantity: quantity
+            // quantity: quantity
+            quantity: 1
         })
 
     },
@@ -108,6 +109,43 @@ export default {
         
 
         context.commit('decrement', selected)
+    },
+    async sendOrder(context ,payload) {
+        const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/orders/${payload.userId}.json?auth=` + payload.token, {
+            method: 'POST',
+            body: JSON.stringify({
+                cart: payload.cart,
+                details: payload.details
+            })
+        })
+
+        const responseData = await response.json();
+
+        if (!response) {
+            const error = new Error(response.error.message)
+            throw error;
+        }
+
+        context.commit('setOrder', payload)
+
+        context.dispatch('clearCart', payload);
+    },
+    async clearCart(context, payload) {
+        const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart.json?auth=` + payload.token, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                [payload.userId]: null
+            })
+        })
+
+        const responseData = await response.json();
+
+        if(!response) {
+            const error = new Error(response.error.message)
+            throw error;
+        }
+
+        context.commit('clearCart');
     }
     
 }

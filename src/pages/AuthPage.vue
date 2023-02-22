@@ -31,7 +31,7 @@ export default {
             if (!this.stateLogIn) {
                 await this.$store.dispatch('auth/signUp', {
                     login: this.login.val,
-                    password: this.password.val
+                    password: this.password.val,
                 })
             } else {
                 await this.$store.dispatch('auth/logIn', {
@@ -68,43 +68,44 @@ export default {
 </script>
 
 <template>
-<section>
-    <div class="success-block" v-if="!stateLogIn && this.$store.getters['auth/getToken'] !== null">
-        <h2 class="heading">You are successfully signed up</h2>
-        <base-button class="base-button_margin" @click="logOut">Log out</base-button>
-    </div>
-    <div class="success-block" v-else-if="stateLogIn && this.$store.getters['auth/getToken'] !== null">
-        <h2 class="heading">You are successfully logged in</h2>
-        <base-button class="base-button_margin" @click="logOut">Log out</base-button>
-    </div>
-    <div v-else class="section-content">
-        <h2 class="heading heading_margin">Welcome to the store</h2>
-        <div class="form-container">
-            <keep-alive>
-                <form class="form-container__form " @submit.prevent="submitForm">
-                    <input 
-                        type="email"
-                        id="email" 
-                        placeholder="Login"
-                        @focus="this.error = null"
-                        v-model="login.val"
-                        class="form-container__input"  
-                    />
-                    <input 
-                        id="password" 
-                        placeholder="Password"
-                        @focus="this.error = null"
-                        v-model="password.val" 
-                        class="form-container__input" 
-                    />
-                    <form-error :error="this.error"></form-error>
-                    <base-button class="base-button_margin">{{ this.stateLogIn ? 'Log in' : 'Sign up' }}</base-button>
-                </form>
-            </keep-alive>
+    
+    <section>
+        <div class="success-block" v-if="!stateLogIn && this.$store.getters['auth/getToken'] !== null">
+            <h2 class="heading">You are successfully signed up</h2>
+            <base-button class="base-button_margin" @click="logOut">Log out</base-button>
         </div>
-        <p class="sign-up sign-up_margin">or <span @click="toggleAuthMode">{{!this.stateLogIn ? 'log in' : 'sign up'}}</span> as a new user</p>
-    </div>
-</section>
+        <div class="success-block" v-else-if="stateLogIn && this.$store.getters['auth/getToken'] !== null">
+            <h2 class="heading">You are successfully logged in</h2>
+            <base-button class="base-button_margin" @click="logOut">Log out</base-button>
+        </div>
+        <div v-else class="section-content">
+            <h2 class="heading heading_margin">Welcome to the store</h2>
+            <div class="form-container">
+                <keep-alive>
+                    <form class="form-container__form " @submit.prevent="submitForm">
+                        <input
+                            id="email"
+                            placeholder="Email"
+                            @focus="this.error = null"
+                            v-model="login.val"
+                            class="form-container__input"  
+                        />
+                        <input 
+                            id="password" 
+                            placeholder="Password"
+                            @focus="this.error = null"
+                            v-model="password.val" 
+                            class="form-container__input" 
+                        />
+                        <form-error :error="this.error"></form-error>
+                        <base-button class="base-button_margin">{{ this.stateLogIn ? 'Log in' : 'Sign up' }}</base-button>
+                    </form>
+                </keep-alive>
+            </div>
+            <p class="sign-up sign-up_margin">or <span @click="toggleAuthMode">{{!this.stateLogIn ? 'log in' : 'sign up'}}</span> as a new user</p>
+        </div>
+    </section>
+
 </template>
 
 <style scoped lang="scss">
@@ -180,6 +181,9 @@ section {
 .base-button_margin {
     margin-top: 1.2rem;
     transition: all 0.3 ease;
+
+    margin-left:auto;
+    margin-right: auto;
 }
 
 .sign-up {
@@ -210,9 +214,6 @@ section {
         padding: 6rem 0;
     }
 
-    .success-block {
-        // padding: 0 4.5rem;
-    }
     .heading_margin {
         transform: translateX(0);
     }

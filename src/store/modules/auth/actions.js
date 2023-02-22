@@ -1,3 +1,5 @@
+let timer;
+
 export default {
     async logIn(context, payload) {
         return context.dispatch('auth', {
@@ -47,13 +49,21 @@ export default {
         
         showError(response);
 
+        const expiresIn = +responseData.expiresIn * 1000;
+        const expirationDate = new Date().getTime() + expiresIn;
+
         localStorage.setItem('token', responseData.idToken);
         localStorage.setItem('userId', responseData.localId);
+        localStorage.setItem('tokenExpiration', expirationDate);
+
+        timer = setTimeout(function() {
+            context.dispatch('autoLogout')
+        }, expiresIn)
 
         context.commit('setUser', {
             token: responseData.idToken,
             userId: responseData.localId,
-            tokenExpiration: responseData.expiresIn
+            cartId: payload.cartId
         })
 
         const userId = context.getters['getUserId'];
@@ -67,14 +77,22 @@ export default {
     autoLogIn(context) {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId')
+        const tokenExpiration = localStorage.getItem('tokenExpiration');
 
-        console.log(token, userId);
+        const expiresIn = +tokenExpiration - new Date().getTime('tokenExpiration');
+
+        if (expiresIn < 0) {
+            return
+        }
+
+        timer = setTimeout(function() {
+            context.dispatch('autoLogout')
+        }, expiresIn);
 
         if (token && userId) {
             context.commit('setUser', {
                 token: token,
                 userId: userId,
-                tokenExpiration: null
             })
             
             context.dispatch('cart/getCart', {
@@ -84,10 +102,19 @@ export default {
         }
     },
     logOut(context) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('tokenExpiration')
+
+        clearTimeout(timer);
+
         context.commit('logOut', {
             token: null,
             userId: null,
-            tokenExpiration: null
         })
+    },
+    autoLogout(context) {
+        context.dispatch('logOut');
+        context.commit('setAutoLogout')
     }
 }

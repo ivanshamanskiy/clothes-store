@@ -6,7 +6,8 @@ export default {
     namespaced: true,
     state() {
         return {
-            cart: []
+            cart: [],
+            order: null
         }
     },
     mutations,

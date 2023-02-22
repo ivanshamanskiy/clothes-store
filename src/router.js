@@ -4,11 +4,13 @@ import store from './store/index.js'
 import MainPage from './pages/MainPage.vue';
 import AuthPage from './pages/AuthPage.vue';
 import CartPage from './pages/CartPage.vue';
+import ShippingPage from './pages/ShippingPage.vue'
 
 const routes = [
     { path: '/', component: MainPage },
     { path: '/auth', component: AuthPage },
-    { path: '/cart', component: CartPage, meta: { authRequired: true} }
+    { path: '/cart', component: CartPage, meta: { authRequired: true} },
+    { path: '/cart/shipping', component: ShippingPage }
 ]
 
 const router = createRouter({

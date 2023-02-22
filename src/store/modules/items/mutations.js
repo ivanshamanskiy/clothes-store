@@ -6,9 +6,14 @@ export default {
     openTshirtsSection(state) {
         state.tshirtsOn = true;
         state.hoodiesOn = false;
+        console.log('done')
     },
     openHoodiesSection(state) {
         state.hoodiesOn = true;
+        state.tshirtsOn = false;
+    },
+    exitBoth(state) {
+        state.hoodiesOn = false;
         state.tshirtsOn = false;
     }
 }
