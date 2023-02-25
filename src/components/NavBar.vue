@@ -158,7 +158,7 @@ a:last-child {
     position: relative;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 600px) {
     .nav-bar__nav-links {
         grid-template-columns: 1fr 1fr;
         column-gap: 2rem;

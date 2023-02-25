@@ -10,16 +10,21 @@
 .base-heading {
     font-size: 4.3rem;
     line-height: 5.2rem;
-    max-width: 60%;
+    width: 75%;
+    max-width: 50rem;
+    text-align: left;
     font-weight: 600;
     color: #fff;
-
-    margin-left: 0;
-    margin-right: 0;
 }
 
-@media screen and (min-width: 900px) {
-    .cart-heading {
+@media screen and (max-width: 360px) {
+    .base-heading {
+        font-size: 4rem;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .base-heading {
         font-size: 5rem;
     }
 }

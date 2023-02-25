@@ -1,48 +1,52 @@
 <script>
 
-import MainPage from './pages/MainPage.vue';
-import NavBar from './components/NavBar.vue';
+import MainPage from "./pages/MainPage.vue";
+import NavBar from "./components/NavBar.vue";
 
 export default {
   components: { MainPage, NavBar },
   computed: {
     didAutoLogout() {
-      return this.$store.getters['auth/didAutoLogout']
+      return this.$store.getters["auth/didAutoLogout"];
     },
     curPath() {
       return this.$route.path;
     }
   },
   created() {
-    this.$store.dispatch('auth/autoLogIn');
+      this.$store.dispatch("auth/autoLogIn");
   },
   watch: {
     didAutoLogout(curVal, oldVal) {
       if (curVal && curVal !== oldVal) {
-        this.$router.replace('/')
+        this.$router.replace("/");
       }
     },
-    curPath(curVal, oldVal) {
-      if (curVal === '/auth' || '/cart') {
-        this.$store.commit('items/exitBoth');
+    curPath(curVal, _) {
+      if (curVal === "/auth" || "/cart") {
+        this.$store.commit("items/exitBoth");
       } 
-      if (curVal === '/') {
-        if(this.$route.hash === '#hoodies') {
-          this.$store.commit('items/openHoodiesSection')
+      if (curVal === "/") {
+        if(this.$route.hash === "#hoodies") {
+          this.$store.commit("items/openHoodiesSection");
         } else {
-          this.$store.commit('items/openTshirtsSection')
+          this.$store.commit("items/openTshirtsSection");
         }
       }
     }
   }
-}
+};
 
 </script>
 
 <template>
   <section class="content content_centered">
     <nav-bar></nav-bar>
-    <router-view></router-view>
+    <router-view v-slot="slotProps">
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component"></component>
+      </transition>
+    </router-view>
   </section>
 </template>
 
@@ -51,8 +55,9 @@ export default {
 .content {
     background-color: $bgDark;
     min-height: 100vh;
+    min-width: 33rem;
     width: 100%;
-    max-width: 45rem;
+
 }
 
 .content_centered {
@@ -60,7 +65,29 @@ export default {
     margin-right: auto;
 }
 
-@media screen and (min-width: 900px) {
+.route-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.route-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.route-enter-active {
+  transition: all 0.3s ease-out;
+}
+.route-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.route-enter-to,
+.route-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media screen and (min-width: 750px) {
 .content {
     // background-color: $bgGrey;
     max-width: 75rem;

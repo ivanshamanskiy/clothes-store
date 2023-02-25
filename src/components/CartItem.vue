@@ -82,7 +82,13 @@ svg {
     border-radius: 50px;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 360px) {
+    .cart-item {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 750px) {
 
     .cart-item {
         height: 6.1rem;

@@ -16,6 +16,7 @@ export default {
         formIsValid: true,
         stateLogIn: true,
         error: null,
+        isLoading: false
     }
   },
   methods: {
@@ -28,7 +29,9 @@ export default {
         if (!this.formIsValid) return
 
         try {
+            this.isLoading = true;
             if (!this.stateLogIn) {
+
                 await this.$store.dispatch('auth/signUp', {
                     login: this.login.val,
                     password: this.password.val,
@@ -39,6 +42,7 @@ export default {
                     password: this.password.val
                 })
             }
+            this.isLoading = false;
             this.login = '';
             this.password = '';
             this.$router.replace('/')
@@ -70,16 +74,18 @@ export default {
 <template>
     
     <section>
+        <base-spinner v-if="isLoading"></base-spinner>
+        <div v-else>
         <div class="success-block" v-if="!stateLogIn && this.$store.getters['auth/getToken'] !== null">
-            <h2 class="heading">You are successfully signed up</h2>
+            <base-heading>You are successfully signed up</base-heading>
             <base-button class="base-button_margin" @click="logOut">Log out</base-button>
         </div>
         <div class="success-block" v-else-if="stateLogIn && this.$store.getters['auth/getToken'] !== null">
-            <h2 class="heading">You are successfully logged in</h2>
+            <base-heading>You are successfully logged in</base-heading>
             <base-button class="base-button_margin" @click="logOut">Log out</base-button>
         </div>
         <div v-else class="section-content">
-            <h2 class="heading heading_margin">Welcome to the store</h2>
+            <base-heading class="heading_margin">Welcome to the store</base-heading>
             <div class="form-container">
                 <keep-alive>
                     <form class="form-container__form " @submit.prevent="submitForm">
@@ -102,7 +108,8 @@ export default {
                     </form>
                 </keep-alive>
             </div>
-            <p class="sign-up sign-up_margin">or <span @click="toggleAuthMode">{{!this.stateLogIn ? 'log in' : 'sign up'}}</span> as a new user</p>
+            <p class="sign-up sign-up_margin">or <span @click="toggleAuthMode">{{!this.stateLogIn ? 'log in' : 'sign up'}}</span></p>
+        </div>
         </div>
     </section>
 
@@ -121,7 +128,7 @@ section {
     display: grid;
     align-items: center;
     justify-content: center;
-    padding: 4rem 0;
+    padding: 3rem 4.5rem;
 }
 
 .section-content {
@@ -129,17 +136,10 @@ section {
     justify-content: center;
 }
 
-.heading {
-    font-size: 4.3rem;
-    line-height: 5.2rem;
-    max-width: 60%;
-    font-weight: 600;
-    color: #fff;
-}
 
 .heading_margin {
     @include centered;
-    transform: translateX(-3%);
+    // transform: translateX(-10%);
     margin-bottom: 3.2rem;
 }
 
@@ -208,18 +208,16 @@ section {
 }
 
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 750px) {
 
     section {
-        padding: 6rem 0;
+        padding: 6rem 4.5rem;
+        display: grid;
+        justify-content: center;
     }
 
     .heading_margin {
-        transform: translateX(0);
-    }
-    .heading {
-        font-size: 5rem;
-        margin-bottom: 1.8rem;
+        transform: translateX(10%);
     }
     .form-container__input {
         width: 60%;

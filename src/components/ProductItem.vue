@@ -41,6 +41,7 @@ export default {
         }
     },
     created() {
+        console.log(this.$store.getters['items/items']);
         this.selectedItem = this.$store.getters['items/items'].find(i => i.id === this.id);
     }
 }
@@ -96,7 +97,8 @@ export default {
 @import '../styles/variables.scss';
 .product-item {
     height: 21.7rem;
-    width: 25.3rem;
+    width: 95%;
+    min-width: 21.7rem;
     border-radius: 21px;
     background-color: $bgGrey;
 
