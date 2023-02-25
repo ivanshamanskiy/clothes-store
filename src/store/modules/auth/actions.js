@@ -73,6 +73,8 @@ export default {
       userId,
       token,
     }, { root: true });
+
+    context.commit('cart/loadingOff')
   },
   autoLogIn(context) {
     const token = localStorage.getItem("token");

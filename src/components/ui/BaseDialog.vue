@@ -42,6 +42,7 @@ dialog {
     height: 21.9rem;
     width: 70%;
     z-index: 100;
+    border: none;
     background-color: $bgGrey;
     border-radius: 14px;
     padding: 2rem 4rem;
@@ -74,10 +75,12 @@ button {
 
 .dialog-enter-active {
   transition: all 0.3s ease-in;
+
 }
 
 .dialog-leave-active {
   transition: all 0.3s ease-out;
+ 
 }
 
 .dialog-enter-to,

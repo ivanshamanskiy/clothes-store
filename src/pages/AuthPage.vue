@@ -47,6 +47,7 @@ export default {
             this.password = '';
             this.$router.replace('/')
         } catch(err) {
+            this.isLoading = false;
             this.error = err.message;
         }
     },
