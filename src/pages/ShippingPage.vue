@@ -240,7 +240,12 @@ svg {
 @media screen and (min-width: 750px) {
     .form-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 4fr 6fr;
+        column-gap: 1.8rem;
+    }
+
+    .heading-margin {
+        margin-bottom: 0;
     }
 }
 

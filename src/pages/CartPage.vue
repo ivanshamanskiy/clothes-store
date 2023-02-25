@@ -39,7 +39,7 @@ export default {
 <template>
 
 <section>
-        <base-spinner v-if="isLoading"></base-spinner>
+        <base-spinner class="spinner" v-if="isLoading"></base-spinner>
         <div v-else>
             <base-heading v-if="cartLength === 0">Your cart is empty</base-heading>
             <div v-else class="cart-content">
@@ -67,7 +67,13 @@ export default {
 
 section {
     padding: 3rem 4.5rem;
+    // height: calc(100vh - 12rem);
 }
+
+.spinner {
+    // height: 100%;
+}
+
 .cart-content {
     display: grid;
     gap: 1.2rem;

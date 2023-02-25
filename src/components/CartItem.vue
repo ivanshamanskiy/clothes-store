@@ -40,7 +40,7 @@ export default {
 <style scoped lang="scss">
 @import '../styles/variables.scss';
 .cart-item {
-    width: 70%;
+    width: 80%;
     height: 5.1rem;
     border-radius: 5px;
     background-color: $bgGrey;
@@ -84,7 +84,7 @@ svg {
 
 @media screen and (max-width: 360px) {
     .cart-item {
-        width: 90%;
+        width: 100%;
     }
 }
 

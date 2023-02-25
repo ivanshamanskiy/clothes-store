@@ -77,17 +77,16 @@ export default {
         <base-spinner v-if="isLoading"></base-spinner>
         <div v-else>
         <div class="success-block" v-if="!stateLogIn && this.$store.getters['auth/getToken'] !== null">
-            <base-heading>You are successfully signed up</base-heading>
+            <base-heading class="success-block__heading">You are successfully signed up</base-heading>
             <base-button class="base-button_margin" @click="logOut">Log out</base-button>
         </div>
         <div class="success-block" v-else-if="stateLogIn && this.$store.getters['auth/getToken'] !== null">
-            <base-heading>You are successfully logged in</base-heading>
+            <base-heading class="success-block__heading">You are successfully logged in</base-heading>
             <base-button class="base-button_margin" @click="logOut">Log out</base-button>
         </div>
         <div v-else class="section-content">
-            <base-heading class="heading_margin">Welcome to the store</base-heading>
             <div class="form-container">
-                <keep-alive>
+                <base-heading class="heading heading_margin">Welcome to the store</base-heading>
                     <form class="form-container__form " @submit.prevent="submitForm">
                         <input
                             id="email"
@@ -106,7 +105,6 @@ export default {
                         <form-error :error="this.error"></form-error>
                         <base-button class="base-button_margin">{{ this.stateLogIn ? 'Log in' : 'Sign up' }}</base-button>
                     </form>
-                </keep-alive>
             </div>
             <p class="sign-up sign-up_margin">or <span @click="toggleAuthMode">{{!this.stateLogIn ? 'log in' : 'sign up'}}</span></p>
         </div>
@@ -136,15 +134,28 @@ section {
     justify-content: center;
 }
 
+.heading {
+    position: relative;
+    top: -20%;
+    left: 0;
+}
+
+.form-container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    row-gap: 2rem;
+    margin-top: 3rem;
+}
+
 
 .heading_margin {
     @include centered;
-    // transform: translateX(-10%);
-    margin-bottom: 3.2rem;
 }
 
 .form-container__form {
-    display: grid;
+    display: inline-grid;
+    // margin-left: auto;
     row-gap: 1.8rem;
 }
 
@@ -207,30 +218,34 @@ section {
     margin-top: 2.8rem;
 }
 
+.success-block__heading {
+    margin-bottom: 2rem;
+}
+
 
 @media screen and (min-width: 750px) {
 
-    section {
-        padding: 6rem 4.5rem;
-        display: grid;
-        justify-content: center;
-    }
+    // section {
+    //     padding: 6rem 4.5rem;
+    //     display: grid;
+    //     justify-content: center;
+    // }
 
-    .heading_margin {
-        transform: translateX(10%);
-    }
-    .form-container__input {
-        width: 60%;
-    }
+    // .heading_margin {
+    //     // transform: translateX(10%);
+    // }
+    // .form-container__input {
+    //     width: 60%;
+    // }
 
-    .form-container__form {
-        row-gap: 2.2rem;
-    }
+    // .form-container__form {
+    //     row-gap: 2.2rem;
+    // }
 
-    .sign-up {
-        width: 16.2rem;
-        font-size: 2.4rem;
-    }
+    // .sign-up {
+    //     width: 16.2rem;
+    //     font-size: 2.4rem;
+    // }
 }
 
 </style>

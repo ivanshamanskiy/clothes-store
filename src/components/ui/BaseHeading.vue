@@ -10,8 +10,8 @@
 .base-heading {
     font-size: 4.3rem;
     line-height: 5.2rem;
-    width: 75%;
-    max-width: 50rem;
+    // width: 75%;
+    // max-width: 85%;
     text-align: left;
     font-weight: 600;
     color: #fff;
