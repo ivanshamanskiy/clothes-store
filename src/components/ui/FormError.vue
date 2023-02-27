@@ -1,34 +1,31 @@
 <script>
 export default {
-        props: ['error']
-    }
+  props: ["error"],
+};
 </script>
 
 <template>
-
-<transition name="error">
-<div class="error-container" v-show="error">
-    <p class="error">{{ error }}</p>
-</div>
-</transition>
-
+  <transition name="error">
+    <div class="error-container" v-show="error">
+      <p class="error">{{ error }}</p>
+    </div>
+  </transition>
 </template>
 
 <style scoped lang="scss">
-
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 .error-container {
-    display: inline-block;
-    width: 27.7rem;
-    padding: 0 1rem;
+  display: inline-block;
+  width: 27.7rem;
+  padding: 0 1rem;
 
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .error {
-    font-size: 1.2rem;
-    color: $error;
+  font-size: 1.2rem;
+  color: $error;
 }
 
 .error-enter-from,
@@ -48,5 +45,4 @@ export default {
 .error-leave-from {
   opacity: 1;
 }
-
 </style>

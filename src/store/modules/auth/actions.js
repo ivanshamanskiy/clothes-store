@@ -15,11 +15,14 @@ export default {
   },
   async auth(context, payload) {
     const { mode } = payload;
-    let url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCNPWcP3p7fkYFOwsXr-4fugrQDy1orEJc";
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCNPWcP3p7fkYFOwsXr-4fugrQDy1orEJc";
 
     const showError = function (res) {
       if (mode === "logIn" && !res.ok) {
-        const error = new Error(res.message || "Email or password is not valid");
+        const error = new Error(
+          res.message || "Email or password is not valid"
+        );
         throw error;
       }
       if (mode === "signUp" && !res.ok) {
@@ -33,7 +36,8 @@ export default {
     };
 
     if (mode === "signUp") {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCNPWcP3p7fkYFOwsXr-4fugrQDy1orEJc";
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCNPWcP3p7fkYFOwsXr-4fugrQDy1orEJc";
     }
 
     const response = await fetch(url, {
@@ -69,12 +73,16 @@ export default {
     const userId = context.getters.getUserId;
     const token = context.getters.getToken;
 
-    context.dispatch("cart/getCart", {
-      userId,
-      token,
-    }, { root: true });
+    context.dispatch(
+      "cart/getCart",
+      {
+        userId,
+        token,
+      },
+      { root: true }
+    );
 
-    context.commit('cart/loadingOff')
+    context.commit("cart/loadingOff");
   },
   autoLogIn(context) {
     const token = localStorage.getItem("token");
@@ -97,10 +105,14 @@ export default {
         userId,
       });
 
-      context.dispatch("cart/getCart", {
-        userId,
-        token,
-      }, { root: true });
+      context.dispatch(
+        "cart/getCart",
+        {
+          userId,
+          token,
+        },
+        { root: true }
+      );
     }
   },
   logOut(context) {

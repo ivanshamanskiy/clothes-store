@@ -1,5 +1,4 @@
 <script>
-
 import MainPage from "./pages/MainPage.vue";
 import NavBar from "./components/NavBar.vue";
 
@@ -11,10 +10,10 @@ export default {
     },
     curPath() {
       return this.$route.path;
-    }
+    },
   },
   created() {
-      this.$store.dispatch("auth/autoLogIn");
+    this.$store.dispatch("auth/autoLogIn");
   },
   watch: {
     didAutoLogout(curVal, oldVal) {
@@ -25,18 +24,17 @@ export default {
     curPath(curVal, _) {
       if (curVal === "/auth" || "/cart") {
         this.$store.commit("items/exitBoth");
-      } 
+      }
       if (curVal === "/") {
-        if(this.$route.hash === "#hoodies") {
+        if (this.$route.hash === "#hoodies") {
           this.$store.commit("items/openHoodiesSection");
         } else {
           this.$store.commit("items/openTshirtsSection");
         }
       }
-    }
-  }
+    },
+  },
 };
-
 </script>
 
 <template>
@@ -51,18 +49,17 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@import './styles/variables.scss';
+@import "./styles/variables.scss";
 .content {
-    background-color: $bgDark;
-    min-height: 100vh;
-    min-width: 33rem;
-    width: 100%;
-
+  background-color: $bgDark;
+  min-height: 100vh;
+  min-width: 33rem;
+  width: 100%;
 }
 
 .content_centered {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .route-enter-from {
@@ -88,11 +85,10 @@ export default {
 }
 
 @media screen and (min-width: 750px) {
-.content {
+  .content {
     // background-color: $bgGrey;
     max-width: 75rem;
     height: 100vh;
+  }
 }
-}
-
 </style>

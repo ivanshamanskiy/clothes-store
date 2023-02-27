@@ -1,23 +1,23 @@
 <script></script>
 
 <template>
-    <button class="base-btn"><slot>Submit</slot></button>
+  <button class="base-btn"><slot>Submit</slot></button>
 </template>
 
 <style scoped lang="scss">
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 .base-btn {
-    display: inline-block;
-    border: none;
-    height: 5rem;
-    width: 35%;
-    max-width: 15rem;
-    background-color: $accent;
-    color: #fff;
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    border-radius: 10px;
-    cursor: pointer;
+  display: inline-block;
+  border: none;
+  height: 5rem;
+  width: 35%;
+  max-width: 15rem;
+  background-color: $accent;
+  color: #fff;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 // @media screen and (max-width: 360px) {
@@ -29,11 +29,9 @@
 // }
 
 @media screen and (min-width: 750px) {
-    
-    .base-btn {
-        height: 5rem;
-        width: 15rem;
-    }
+  .base-btn {
+    height: 5rem;
+    width: 15rem;
+  }
 }
-
 </style>

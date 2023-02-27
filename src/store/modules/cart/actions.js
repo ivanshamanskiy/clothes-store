@@ -4,7 +4,9 @@ export default {
 
     const showError = function (res) {
       if (!res.ok) {
-        const error = new Error(res.message || "Something went wrong. Try to authenticate");
+        const error = new Error(
+          res.message || "Something went wrong. Try to authenticate"
+        );
         throw error;
       }
     };
@@ -12,13 +14,16 @@ export default {
     for (const el of context.getters.getCart) {
       if (el.product === payload.product) {
         const incremented = el.quantity + 1;
-        const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.product}.json?auth=${payload.token}`, {
-          method: "PATCH",
-          body: JSON.stringify({
-            product: payload.product,
-            quantity: incremented,
-          }),
-        });
+        const response = await fetch(
+          `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.product}.json?auth=${payload.token}`,
+          {
+            method: "PATCH",
+            body: JSON.stringify({
+              product: payload.product,
+              quantity: incremented,
+            }),
+          }
+        );
         present = true;
 
         showError(response);
@@ -26,13 +31,16 @@ export default {
     }
 
     if (!present) {
-      const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.product}.json?auth=${payload.token}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          product: payload.product,
-          quantity: 1,
-        }),
-      });
+      const response = await fetch(
+        `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.product}.json?auth=${payload.token}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            product: payload.product,
+            quantity: 1,
+          }),
+        }
+      );
 
       showError(response);
     }
@@ -46,7 +54,9 @@ export default {
   async getCart({ commit }, payload) {
     commit("loadingOn");
 
-    const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}.json?auth=${payload.token}`);
+    const response = await fetch(
+      `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}.json?auth=${payload.token}`
+    );
 
     commit("loadingOff");
 
@@ -72,41 +82,54 @@ export default {
   },
   async increment(context, payload) {
     console.log("started");
-    const selected = context.getters.getCart.find((el) => el.product === payload.title);
+    const selected = context.getters.getCart.find(
+      (el) => el.product === payload.title
+    );
     const incremented = payload.qty + 1;
-    await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.title}.json?auth=${payload.token}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        product: payload.title,
-        quantity: incremented,
-      }),
-    });
+    await fetch(
+      `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.title}.json?auth=${payload.token}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          product: payload.title,
+          quantity: incremented,
+        }),
+      }
+    );
 
     await context.commit("increment", selected);
   },
   async decrement(context, payload) {
-    const selected = context.getters.getCart.find((el) => el.product === payload.title);
+    const selected = context.getters.getCart.find(
+      (el) => el.product === payload.title
+    );
     const decremented = payload.qty - 1;
     if (payload.qty > 1) {
-      const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.title}.json?auth=${payload.token}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          product: payload.title,
-          quantity: decremented,
-        }),
-      });
+      const response = await fetch(
+        `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}/${payload.title}.json?auth=${payload.token}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            product: payload.title,
+            quantity: decremented,
+          }),
+        }
+      );
 
       if (!response) {
         const error = new Error(response.error.message);
         throw error;
       }
     } else {
-      const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}.json?auth=${payload.token}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          [payload.title]: null,
-        }),
-      });
+      const response = await fetch(
+        `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart/${payload.userId}.json?auth=${payload.token}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            [payload.title]: null,
+          }),
+        }
+      );
 
       if (!response) {
         const error = new Error(response.error.message);
@@ -117,13 +140,16 @@ export default {
     context.commit("decrement", selected);
   },
   async sendOrder(context, payload) {
-    const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/orders/${payload.userId}.json?auth=${payload.token}`, {
-      method: "POST",
-      body: JSON.stringify({
-        cart: payload.cart,
-        details: payload.details,
-      }),
-    });
+    const response = await fetch(
+      `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/orders/${payload.userId}.json?auth=${payload.token}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          cart: payload.cart,
+          details: payload.details,
+        }),
+      }
+    );
 
     if (!response) {
       const error = new Error(response.error.message);
@@ -135,12 +161,15 @@ export default {
     context.dispatch("clearCart", payload);
   },
   async clearCart(context, payload) {
-    const response = await fetch(`https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart.json?auth=${payload.token}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        [payload.userId]: null,
-      }),
-    });
+    const response = await fetch(
+      `https://clothes-store-3205a-default-rtdb.europe-west1.firebasedatabase.app/cart.json?auth=${payload.token}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          [payload.userId]: null,
+        }),
+      }
+    );
 
     if (!response) {
       const error = new Error(response.error.message);
@@ -149,5 +178,4 @@ export default {
 
     context.commit("clearCart");
   },
-
 };

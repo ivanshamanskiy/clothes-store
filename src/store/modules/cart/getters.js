@@ -4,7 +4,7 @@ export default {
   },
   getCartLength(state) {
     let qty = 0;
-    state.cart.forEach((el) => qty += el.quantity);
+    state.cart.forEach((el) => (qty += el.quantity));
     return qty;
   },
   getOrder(state) {
